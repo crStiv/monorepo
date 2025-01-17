@@ -259,7 +259,7 @@ impl<T: Translator, B: Blob, E: Storage<B>> Archive<T, B, E> {
         }
     }
 
-    /// Store an item in `Archive`. Both indices and keys are assumed to both be globally unique.
+    /// Store an item in `Archive`. Both indices and keys are assumed to be globally unique.
     ///
     /// If the index already exists, an error is returned. If the same key is stored multiple times
     /// at different indices (not recommended), any value associated with the key may be returned.
@@ -536,7 +536,7 @@ impl<T: Translator, B: Blob, E: Storage<B>> Archive<T, B, E> {
             self.indices_pruned.inc();
         }
 
-        // Remove all keys from interval tree less than min
+        // Remove all keys from the interval tree less than min
         if min > 0 {
             self.intervals.remove(0..=min - 1);
         }
@@ -576,7 +576,7 @@ impl<T: Translator, B: Blob, E: Storage<B>> Archive<T, B, E> {
         let current = self.intervals.get(&index);
         let current_end = current.map(|range| range.end());
 
-        // Get start of next range (if exists)
+        // Get start of the next range (if exists)
         let next = self.intervals.iter().find(|range| range.start() > &index);
         let next_start = next.map(|range| range.start());
         (current_end.copied(), next_start.copied())
